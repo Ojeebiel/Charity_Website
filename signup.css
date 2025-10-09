@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      color: #333;
+    }
+
+    /* Left side (form section) */
+    .left-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      background-color: #f0f4f8;
+      position: relative;
+    }
+
+    .foundation-title {
+      position: absolute;
+      top: 1rem;
+      left: 1.5rem;
+      font-size: 1.5rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      color: #e5533f;
+    }
+
+    .content-wrapper {
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Header inside form */
+    .content-wrapper h1 {
+      margin-bottom: 1.5rem;
+      color: #e5533f;
+      font-weight: 600;
+    }
+
+    /* Form Styling */
+    .content-wrapper form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 2rem;
+    }
+
+    .content-wrapper input[type="text"],
+    .content-wrapper input[type="password"] {
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .content-wrapper input[type="text"]:focus,
+    .content-wrapper input[type="password"]:focus {
+      border-color: #e5533f;
+    }
+
+    .content-wrapper input[type="submit"] {
+      padding: 0.8rem;
+      background-color: #e5533f;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .content-wrapper input[type="submit"]:hover {
+      background-color: #d44932;
+    }
+
+    /* Signup link (if used) */
+    #signup {
+      color: #e5533f;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    #signup:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer text under form */
+    .footer {
+      font-size: 0.9rem;
+      color: #555;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .footer a {
+      color: #e5533f;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Right side (background image) */
+    .right-container {
+      flex: 1;
+      background: url('background2.jpg') center/cover no-repeat;
+    }
+
+    .right-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .right-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
