@@ -1,0 +1,121 @@
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      color: #333;
+    }
+
+    .left-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      background-color: #f0f4f8;
+      position: relative;
+    }
+
+    .foundation-title {
+      position: absolute;
+      top: 1rem;
+      left: 1.5rem;
+      font-size: 1.5rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      color: #e5533f;
+    }
+
+    .content-wrapper {
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .content-wrapper img.header-image {
+      width: 250px;
+      height: auto;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+    }
+
+    .content-wrapper h1 {
+      margin-bottom: 1rem;
+      color: #e5533f;
+      text-align: center;
+    }
+
+    .content-wrapper p {
+      margin-bottom: 1rem;
+      color: #ff0000;
+      text-align: center;
+    }
+
+    .content-wrapper form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-wrapper input[type='text'],
+    .content-wrapper input[type='password'] {
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .content-wrapper input[type='submit'] {
+      padding: 0.8rem;
+      background-color: #e5533f;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    #signup {
+      padding: 0.8rem;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+      text-decoration: none;
+      color: #e5533f;
+    }
+
+    #signupdiv {
+      height: 50px;
+      margin-top: 20px;
+    }
+
+    .content-wrapper input[type='submit']:hover {
+      background-color: #d44932;
+    }
+
+    .footer {
+      font-size: 0.9rem;
+      color: #555;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .footer a {
+      color: #e5533f;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .right-container {
+      flex: 1;
+      background: url('img/background2.jpg') center/cover no-repeat;
+    }
