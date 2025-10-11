@@ -1,227 +1,198 @@
-    /* General Styles */
-    body {
-      font-family: "Open Sans", sans-serif;
-      color: #e5533f;
-      margin: 0;
-      padding: 0;
-      background-color: #f9f9f9;
-    }
+/* General Styles */
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #e5533f;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
 
-    /* Header (same as fundraisers.html) */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 25px;
-      background-color: #fff;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 97vw;
-      z-index: 1000;
-    }
+/* Header (same style as gallery.css) */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10%;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 
-    .tabFont {
-      font-size: 22px;
-      font-family: "Josefin Sans", sans-serif;
-      font-weight: 700;
-      color: #e94e3f;
-      text-decoration: none;
-    }
+.tabFont {
+  font-size: 24px;
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 700;
+  color: #e94e3f;
+  text-decoration: none;
+}
 
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-    }
+nav a {
+  margin-left: 30px;
+  text-decoration: none;
+  font-size: 16px;
+  color: #555;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+}
 
-    nav a {
-      text-decoration: none;
-      font-size: 16px;
-      color: #555;
-      font-weight: 500;
-      padding: 6px 0;
-      position: relative;
-      transition: color 0.3s ease;
-    }
+nav a:hover {
+  color: #e94e3f;
+  border-bottom: 2px solid #e94e3f;
+}
 
-    nav a::after {
-      content: "";
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background-color: #e94e3f;
-      transition: width 0.3s ease;
-    }
+/* Footer (same style as gallery.css) */
+footer {
+  background-color: #e94e3f;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 12px;
+}
 
-    nav a:hover {
-      color: #e94e3f;
-    }
+footer p {
+  margin: 0;
+}
 
-    nav a:hover::after {
-      width: 100%;
-    }
+/* Form Layout */
+.container {
+  width: 60%;
+  margin: 150px auto 120px auto; /* space for header & footer */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
-    /* Footer (same as fundraisers.html) */
-    footer {
-      background-color: #e94e3f;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      font-size: 12px;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      z-index: 999;
-    }
+form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 
-    footer p {
-      margin: 0;
-    }
+label {
+  color: #e5533f;
+  font-size: 18px;
+  margin-bottom: 8px;
+  font-family: "Josefin Sans", sans-serif;
+  display: block;
+}
 
-    /* Form Layout */
-    .container {
-      width: 60%;
-      margin: 150px auto 120px auto; /* space for header & footer */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+input[type="text"] {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 15px;
+  box-sizing: border-box;
+  border: 1px solid #b7b7b7;
+  border-radius: 5px;
+  font-size: 14px;
+}
 
-    form {
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
+button {
+  background-color: #e5533f;
+  width: 120px;
+  height: 45px;
+  border-radius: 50px;
+  color: white;
+  border: none;
+  font-size: 16px;
+  font-family: "Josefin Sans", sans-serif;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
 
-    label {
-      color: #e5533f;
-      font-size: 18px;
-      margin-bottom: 8px;
-      font-family: "Josefin Sans", sans-serif;
-      display: block;
-    }
+button:hover {
+  background-color: #c84233;
+}
 
-    input[type="text"] {
-      display: block;
-      width: 100%;
-      margin-bottom: 20px;
-      padding: 15px;
-      box-sizing: border-box;
-      border: 1px solid #b7b7b7;
-      border-radius: 5px;
-      font-size: 14px;
-    }
+#myBtn {
+  background-color: #ffffff;
+  width: 220px;
+  color: #e5533f;
+  font-size: 18px;
+  font-family: "Josefin Sans", sans-serif;
+  margin-bottom: 10px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-    button {
-      background-color: #e5533f;
-      width: 120px;
-      height: 45px;
-      border-radius: 50px;
-      color: white;
-      border: none;
-      font-size: 16px;
-      font-family: "Josefin Sans", sans-serif;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+#myBtn img {
+  width: 20px;
+  height: 30px;
+  margin-right: 8px;
+}
 
-    button:hover {
-      background-color: #c84233;
-    }
+.div3 {
+  display: flex;
+  justify-content: flex-end;
+}
 
-    #myBtn {
-      background-color: #ffffff;
-      width: 220px;
-      color: #e5533f;
-      font-size: 18px;
-      font-family: "Josefin Sans", sans-serif;
-      margin-bottom: 10px;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-      cursor: pointer;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed; 
+  z-index: 1; 
+  padding-top: 100px; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.4); 
+}
 
-    #myBtn img {
-      width: 20px;
-      height: 30px;
-      margin-right: 8px;
-    }
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
 
-    .div3 {
-      display: flex;
-      justify-content: flex-end;
-    }
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    /* Modal styles */
-    .modal {
-      display: none;
-      position: fixed; 
-      z-index: 1; 
-      padding-top: 100px; 
-      left: 0;
-      top: 0;
-      width: 100%; 
-      height: 100%; 
-      overflow: auto; 
-      background-color: rgba(0,0,0,0.4); 
-    }
+.close:hover {
+  color: #000;
+}
 
-    .modal-content {
-      background-color: #fefefe;
-      margin: auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-    }
+/* Responsive */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
 
-    .close {
-      color: #aaaaaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+  nav {
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
-    .close:hover {
-      color: #000;
-    }
+  .container {
+    width: 85%;
+    margin: 160px auto 130px auto;
+  }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: center;
-        padding: 15px;
-      }
+  form {
+    padding: 20px;
+  }
+}
 
-      nav {
-        gap: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .container {
-        width: 85%;
-        margin: 160px auto 130px auto;
-      }
-
-      form {
-        padding: 20px;
-      }
-    }
-
-    /* Location Button */
+/* Location Button */
 #locationBtn {
   background-color: #ffffff;
   width: 220px;

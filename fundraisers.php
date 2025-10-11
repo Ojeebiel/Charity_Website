@@ -17,10 +17,10 @@
   <header>
     <a href="#" class="tabFont">ELIZABETH FOUNDATION</a>
     <nav>
-      <a href="#">HOME</a>
-      <a href="#">GALLERY</a>
-      <a href="#">FUNDRAISERS</a>
-      <a href="#">INITIATE</a>
+      <a href="gallery.php">HOME</a>
+      <a href="fundraisers.php">FUNDRAISERS</a>
+      <a href="initiate.php">INITIATE</a>
+      <a href="#">LOG OUT</a>
     </nav>
   </header>
 

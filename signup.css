@@ -55,6 +55,7 @@
     }
 
     .content-wrapper input[type="text"],
+    .content-wrapper input[type="email"],
     .content-wrapper input[type="password"] {
       padding: 0.8rem;
       border: 1px solid #ccc;
@@ -65,6 +66,7 @@
     }
 
     .content-wrapper input[type="text"]:focus,
+    .content-wrapper input[type="email"]:focus,
     .content-wrapper input[type="password"]:focus {
       border-color: #e5533f;
     }
