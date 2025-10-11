@@ -15,10 +15,10 @@
       <h1>Come Join and Be Among With Us</h1>
 
       <form method="POST" action="signup.process.php">
-        <input type="text" placeholder="Username" name="username" required />
-        <input type="password" placeholder="Password" name="password" required />
-        <input type="text" placeholder="First Name" name="fName" required />
-        <input type="text" placeholder="Last Name" name="lName" required />
+        <input type="text" name="name" placeholder="Full Name" required />
+        <input type="text" name="mobile" placeholder="Mobile Number" required />
+        <input type="email" name="email" placeholder="Email Address" required />
+        <input type="password" name="password" placeholder="Password" required />
         <input type="submit" value="Sign Up" />
       </form>
 

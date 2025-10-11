@@ -14,17 +14,21 @@
     <div class="content-wrapper">
       <h1>Welcome to Our Charity</h1>
 
-      <!-- Example error message (static version of $verified === 'false') -->
-      <p>Incorrect credentials. Please try again.</p>
+        <?php
+        // Display login error if redirected with ?error=true
+        if (isset($_GET['error']) && $_GET['error'] === 'true') {
+            echo '<p style="color: red;">Incorrect email or password. Please try again.</p>';
+        }
+        ?>
 
-      <form>
-        <input type="text" placeholder="Username" name="username" required />
-        <input type="password" placeholder="Password" name="password" required />
+      <form method="POST" action="login.process.php">
+        <input type="email" name="email" placeholder="Email Address" required />
+        <input type="password" name="password" placeholder="Password" required />
         <input type="submit" value="Login" />
       </form>
 
       <div id="signupdiv">
-        <a href="#" id="signup">Sign Up</a>
+        <a href="signup.php" id="signup">Sign Up</a>
       </div>
 
       <div class="footer">
