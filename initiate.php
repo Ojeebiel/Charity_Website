@@ -24,59 +24,65 @@
   </header>
 
   <div class="container">
-    <form action="initiate.process.php">
-      <label for="name">Name of Fundraising</label>
-      <input type="text" placeholder="Enter Name of Fundraising" id="name" required>
 
-      <label for="date">Date of Fundraising</label>
-      <input type="text" placeholder="Enter Date of Fundraising" id="date" required>
+<form action="initiate.process.php" method="POST" enctype="multipart/form-data">
+  <label for="name">Name of Fundraising</label>
+  <input type="text" placeholder="Enter Name of Fundraising" id="name" name="name" required>
 
-      <label for="amount">Amount Goal</label>
-      <input type="text" placeholder="Enter Amount Goal" id="amount" required>
+  <label for="date">Date of Fundraising</label>
+  <input type="date" id="date" name="date" required>
 
-      <label for="description">Description</label>
-      <input type="text" placeholder="Enter Description" id="description" required>
+  <label for="amount">Amount Goal</label>
+  <input type="text" placeholder="Enter Amount Goal" id="amount" name="amount" required>
 
-      <label for="location">Location</label>
-      <div id="locationBtn"><img src="img/map_icon.png" alt="Map Icon">Select Location</div>
+  <label for="description">Description</label>
+  <input type="text" placeholder="Enter Description" id="description" name="description" required>
 
-      <div id="locationModal" class="modal">
-        <div class="modal-content">
-          <span class="close-location">&times;</span>
-          <h3>Select Fundraiser Location</h3>
-          <div class="map-placeholder">
-            <p>🗺️ Map Placeholder Area</p>
-          </div>
-        </div>
+  <label for="location">Location</label>
+  <div id="locationBtn">
+    <img src="img/map_icon.png" alt="Map Icon">Select Location
+  </div>
+
+  <!-- <div id="locationModal" class="modal">
+    <div class="modal-content">
+      <span class="close-location">&times;</span>
+      <h3>Select Fundraiser Location</h3>
+      <div class="map-placeholder">
+        <p>🗺️ Map Placeholder Area</p>
       </div>
+    </div>
+  </div> -->
 
-    <label id="myBtn">
-      <img src="img/clip_Img.png" alt="Icon">
-      Add Attachments
-      <input type="file" name="image" id="fileInput" accept="image/*">
-    </label>
-
-    <!-- This span will show the file name -->
-    <span id="fileName" style="margin-left: 10px; font-family: 'Open Sans', sans-serif; color: #555;"></span>
+  <label id="myBtn">
+    <img src="img/clip_Img.png" alt="Icon">
+    Add Attachments
+    <input type="file" name="image" id="fileInput" style="display:none;">
+  </label>
+  <span id="fileName" style="margin-left: 10px; font-family: 'Open Sans', sans-serif; color: #555;"></span>
 
 
+  <!-- <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <input class="form-control" type="file" name="uploadfile" required>
+    </div>
+  </div> -->
 
-      <div id="myModal" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <input class="form-control" type="file" name="uploadfile" required>
-        </div>
-      </div>
+  <div class="div3">
+    <button type="submit">Initiate</button>
+    <!-- <button type="submit" name="upload">Initiate</button> -->
 
-      <div class="div3">
-        <button type="submit">Initiate</button>
-      </div>
-    </form>
+  </div>
+
+</form>
+
+    
 
   </div>
 
   <footer>
     <p>&copy; 2024 Elizabeth Foundation. All Rights Reserved.</p>
   </footer>
+  <script src="initiate.js"></script>
 </body>
 </html>

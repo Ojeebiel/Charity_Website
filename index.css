@@ -62,7 +62,8 @@
     }
 
     .content-wrapper input[type='text'],
-    .content-wrapper input[type='password'] {
+    .content-wrapper input[type='password'], 
+    .content-wrapper input[type='email']{
       padding: 0.8rem;
       margin-bottom: 1rem;
       border: 1px solid #ccc;
