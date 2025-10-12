@@ -24,7 +24,7 @@
   </header>
 
   <div class="container">
-    <form>
+    <form action="initiate.process.php">
       <label for="name">Name of Fundraising</label>
       <input type="text" placeholder="Enter Name of Fundraising" id="name" required>
 
@@ -50,7 +50,16 @@
         </div>
       </div>
 
-      <div id="myBtn"><img src="img/clip_Img.png" alt="Icon">Add Attachments</div>
+    <label id="myBtn">
+      <img src="img/clip_Img.png" alt="Icon">
+      Add Attachments
+      <input type="file" name="image" id="fileInput" accept="image/*">
+    </label>
+
+    <!-- This span will show the file name -->
+    <span id="fileName" style="margin-left: 10px; font-family: 'Open Sans', sans-serif; color: #555;"></span>
+
+
 
       <div id="myModal" class="modal">
         <div class="modal-content">

@@ -258,3 +258,19 @@ button:hover {
   margin-top: 20px;
   font-family: "Open Sans", sans-serif;
 }
+
+#myBtn input[type="file"] {
+  display: none; /* Hide the real input */
+}
+
+#fileName {
+  font-size: 14px;
+  color: #333;
+  margin-top: 5px;
+  display: inline-block;
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
