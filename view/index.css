@@ -118,5 +118,5 @@
 
     .right-container {
       flex: 1;
-      background: url('img/background2.jpg') center/cover no-repeat;
+      background: url('../img/background2.JPG') center/cover no-repeat;
     }

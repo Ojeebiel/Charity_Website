@@ -2,7 +2,7 @@
 // signup.process.php
 
 // 1. Database connection
-require 'dbconn.php';
+require '../model/dbconn.php';
 
 // 2. Retrieve and sanitize form data
 $name = trim($_POST['name']);

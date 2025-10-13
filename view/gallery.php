@@ -38,19 +38,19 @@
       <div class="item text text-2">October 10, 2025</div>
 
       <div class="item item-1">
-        <img class="image" src="img/image1.jpg" alt="Gallery Image 1" />
+        <img class="image" src="../img/image1.jpg" alt="Gallery Image 1" />
       </div>
       <div class="item item-2">
-        <img class="image" src="img/image2.jpg" alt="Gallery Image 2" />
+        <img class="image" src="../img/image2.jpg" alt="Gallery Image 2" />
       </div>
       <div class="item item-3">
-        <img class="image" src="img/image6.jpg" alt="Gallery Image 3" />
+        <img class="image" src="../img/image6.jpg" alt="Gallery Image 3" />
       </div>
       <div class="item item-4">
-        <img class="image" src="img/image4.jpg" alt="Gallery Image 4" />
+        <img class="image" src="../img/image4.jpg" alt="Gallery Image 4" />
       </div>
       <div class="item item-5">
-        <img class="image" src="img/image5.jpg" alt="Gallery Image 5" />
+        <img class="image" src="../img/image5.jpg" alt="Gallery Image 5" />
       </div>
     </div>
   </div>

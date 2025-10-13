@@ -1,3 +1,9 @@
+<?php
+session_start();
+// Get the data from session
+$rows = $_SESSION['fundraisers'] ?? [];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,23 +31,28 @@
   </header>
 
 <div class="container">
-  <div class="project">
-    <img class="image" src="img/image5.jpg" alt="Project Image 1" />
-    <div class="details">
-      <div class="project-header">
-        <p class="tabFont project-title">Clean Water for All</p>
-        <p class="project-date">October 15, 2025</p>
-      </div>
-      <p>Help provide clean water to communities in need. Every donation counts! </p>
-      <button class="donate-button">DONATE</button>
+  <?php echo "Count: " . count($rows); ?>
 
-      <div class="progress-bar">
-        <div class="progress"></div>
-        <span class="progress-text">40,0000 / 500,000</span>
+  <?php foreach ($rows as $row) { ?>
+    <div class="project">
+      
+      <img class="image" src="../<?php echo $row['image']; ?>" alt="Project Image 1" />
+      <div class="details">
+        
+        <div class="project-header">
+          <p class="tabFont project-title"><?php echo $row['name']; ?></p>
+          <p class="project-date"><?php echo $row['date']; ?></p>
+        </div>
+        <p><?php echo $row['description']; ?></p>
+        <button class="donate-button">DONATE</button>
+        <div class="progress-bar">
+          <div class="progress"></div>
+          <span class="progress-text"> 100 / <?php echo $row['amount_goal']; ?></span>
+        </div>
       </div>
-            
     </div>
-  </div>
+  <?php } ?>
+
   
 </div>
 
@@ -52,3 +63,4 @@
   <script src="fundraiser.js"></script>
 </body>
 </html>
+
