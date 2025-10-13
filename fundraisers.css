@@ -57,35 +57,64 @@ nav a:hover {
 
 /* Project Cards */
 .project {
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden; */
+  display: flex;
+  align-items: center; /* centers the image vertically */
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  padding: 15px; /* optional: adds breathing space */
+
 }
 
 .image {
-  width: 35%;
+  /* width: 35%;
   height: auto;
   object-fit: cover;
-  border-right: 5px solid #f4f4f4;
+  border-right: 5px solid #f4f4f4; */
+  width: 35%;
+  height: auto;
+  max-height: 250px; /* keeps image from getting too tall */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 20px; /* space between image and text */
+  align-self: center; /* ensures it stays centered even with varying text height */
 }
 
 .details {
+  /* flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; */
   flex-grow: 1;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-wrap: break-word; /* ensures text wraps nicely */
+  word-break: break-word;
 }
 
 .details p {
+  /* font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.5; */
   font-size: 14px;
   color: #555;
   margin-bottom: 15px;
   line-height: 1.5;
+  max-width: 100%;
+  text-align: justify; /* ✅ makes the text justified */
+
 }
 
 .donate-button {
@@ -107,29 +136,54 @@ nav a:hover {
 }
 
 .progress-bar {
-  width: 100%;
+  /* width: 100%;
   background-color: #f1f1f1;
   border-radius: 5px;
   overflow: hidden;
   margin-top: 10px;
+  position: relative; */
   position: relative;
+  width: 100%;
+  background-color: #E94E3F;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 22px;
+  margin-top: 10px;
 }
 
 .progress {
-  background-color: #76c043;
+  /* background-color: #76c043;
   height: 18px;
-  width: 50%;
+  width: 0%;
+  transition: width 0.5s ease; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #76c043;
+  width: 0%; /* will be updated by JS */
   transition: width 0.5s ease;
+  z-index: 1;
 }
 
 .progress-text {
-  position: absolute;
+  /* position: absolute;
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 13px;
   color: #555;
+  font-weight: bold; */
+  position: relative;
+  z-index: 2; /* ensures it's ABOVE the bar */
+  display: block;
+  text-align: left;
+  line-height: 22px; /* vertically centers text */
+  font-size: 13px;
   font-weight: bold;
+  color: #fff; /* white text on green background */
+  pointer-events: none;
+  margin-left: 5%;
 }
 
 /* Footer (matched to gallery.css) */
@@ -180,4 +234,18 @@ a {
   .details {
     padding: 15px;
   }
+}
+
+.project-header {
+  margin-bottom: 10px;
+}
+
+.project-title {
+  margin-bottom: 2px; /* smaller gap between title and date */
+}
+
+.project-date {
+  font-size: 14px;
+  color: #888;
+  margin: 0;
 }
