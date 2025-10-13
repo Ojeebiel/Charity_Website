@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Charity Login</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="view/index.css">
 </head>
 <body>
   <div class="left-container">
@@ -21,14 +21,14 @@
         }
         ?>
 
-      <form method="POST" action="login.process.php">
+      <form method="POST" action="controller/login.process.php">
         <input type="email" name="email" placeholder="Email Address" required />
         <input type="password" name="password" placeholder="Password" required />
         <input type="submit" value="Login" />
       </form>
 
       <div id="signupdiv">
-        <a href="signup.php" id="signup">Sign Up</a>
+        <a href="view/signup.php" id="signup">Sign Up</a>
       </div>
 
       <div class="footer">

@@ -1,7 +1,7 @@
 <?php
 // login.process.php
 session_start();
-require 'dbconn.php'; 
+require '../model/dbconn.php';
 
 // 1. Retrieve form data
 $email = trim($_POST['email']);
@@ -30,17 +30,17 @@ if ($result->num_rows === 1) {
         
         echo "<script>
             alert('Welcome back, " . addslashes($user['name']) . "!');
-            window.location.href = 'gallery.php';
+            window.location.href = '../view/gallery.php';
         </script>";
         exit;
     } else {
         // Wrong password
-        header("Location: index.php?error=true");
+        header("Location: ../index.php?error=true");
         exit;
     }
 } else {
     // Email not found
-    header("Location: index.php?error=true");
+    header("Location: ../index.php?error=true");
     exit;
 }
 

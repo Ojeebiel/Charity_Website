@@ -25,7 +25,7 @@
 
   <div class="container">
 
-<form action="initiate.process.php" method="POST" enctype="multipart/form-data">
+<form action="../controller/initiate.process.php" method="POST" enctype="multipart/form-data">
   <label for="name">Name of Fundraising</label>
   <input type="text" placeholder="Enter Name of Fundraising" id="name" name="name" required>
 
@@ -40,7 +40,7 @@
 
   <label for="location">Location</label>
   <div id="locationBtn">
-    <img src="img/map_icon.png" alt="Map Icon">Select Location
+    <img src="" alt="Map Icon">Select Location
   </div>
 
   <!-- <div id="locationModal" class="modal">
@@ -54,7 +54,7 @@
   </div> -->
 
   <label id="myBtn">
-    <img src="img/clip_Img.png" alt="Icon">
+    <img src="../img/clip_Img.png" alt="Icon">
     Add Attachments
     <input type="file" name="image" id="fileInput" style="display:none;">
   </label>

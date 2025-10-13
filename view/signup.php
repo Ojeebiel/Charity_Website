@@ -14,7 +14,7 @@
     <div class="content-wrapper">
       <h1>Come Join and Be Among With Us</h1>
 
-      <form method="POST" action="signup.process.php">
+      <form method="POST" action="../controller/signup.process.php">
         <input type="text" name="name" placeholder="Full Name" required />
         <input type="text" name="mobile" placeholder="Mobile Number" required />
         <input type="email" name="email" placeholder="Email Address" required />
@@ -33,7 +33,7 @@
   </div>
 
 <div class="right-container">
-  <img src="img/background1.jpg" alt="Foundation Background">
+  <img src="../img/background1.jpg" alt="Foundation Background">
 </div>
 </body>
 </html>

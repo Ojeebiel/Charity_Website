@@ -1,5 +1,5 @@
 <?php
-require 'dbconn.php';
+require '../model/dbconn.php';
 
 
 // if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['upload'])) {
@@ -31,15 +31,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
          $sql = "INSERT INTO fundraisers (name, date, amount_goal, description, location, image) VALUES ('$name', '$date', '$amount_goal', '$description', '$location', '$target_file')";
         if (mysqli_query($conn, $sql)) {
             // Redirect to avoid resubmission on reload
-            header("Location: initiate.php?success=1");
+            header("Location: ../view/initiate.php?success=1");
             exit();
         } else {
-            header("Location: initiate.php?error=db");
+            header("Location: ../view/initiate.php?error=db");
             exit();
         }
 
     } else {
-        header("Location: initiate.php?error=upload");
+        header("Location: ../view/initiate.php?error=upload");
         exit();
     }
 }
