@@ -43,7 +43,7 @@ $stmt->bind_param("ssss", $name, $mobile, $email, $hashedPassword);
 if ($stmt->execute()) {
     echo "<script>
         alert('Signup successful! You can now log in.');
-        window.location.href = 'index.php';
+        window.location.href = '../index.php';
     </script>";
 } else {
     echo "<script>
