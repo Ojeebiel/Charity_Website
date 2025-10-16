@@ -1,3 +1,14 @@
+<?php
+session_start();
+// Get the data from session
+// $rows = $_SESSION['fundraisers'] ?? [];
+// require '../controller/fundraisers.process.php';
+echo "hi";
+$account_id = $_SESSION['account_id'];
+echo $account_id;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +37,9 @@
   <div class="container">
 
 <form action="../controller/initiate.process.php" method="POST" enctype="multipart/form-data">
+
+  <input type="hidden" name="account_id" value="<?php echo $account_id; ?>">
+
   <label for="name">Name of Fundraising</label>
   <input type="text" placeholder="Enter Name of Fundraising" id="name" name="name" required>
 

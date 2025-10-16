@@ -6,7 +6,7 @@ require '../model/dbconn.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-
+    $account_id = mysqli_real_escape_string($conn, $_POST['account_id']);
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $date = $_POST['date'];
     $amount_goal = mysqli_real_escape_string($conn, $_POST['amount']);
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // move the file to the uploads folder
     if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
-         $sql = "INSERT INTO fundraisers (name, date, amount_goal, description, location, image) VALUES ('$name', '$date', '$amount_goal', '$description', '$location', '$target_file')";
+         $sql = "INSERT INTO fundraisers (account_id, name, date, amount_goal, description, location, image) VALUES ('$account_id', '$name', '$date', '$amount_goal', '$description', '$location', '$target_file')";
         if (mysqli_query($conn, $sql)) {
             // Redirect to avoid resubmission on reload
             header("Location: ../view/initiate.php?success=1");

@@ -1,3 +1,18 @@
+<?php
+  session_start();
+  $account_id = $_SESSION['account_id'];
+  // Redirect if not logged in
+  if (!isset($_SESSION['account_id'])) {
+      header("Location: ../index.php");
+      exit;
+  }
+
+  require '../controller/gallery.process.php';
+  $posts = fetchGalleryPosts($conn);
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,10 +31,6 @@
   <header>
     <div class="tabFont"><a href="#">ELIZABETH FOUNDATION</a></div>
 
-    <?php
-    session_start();
-    $current_page = basename($_SERVER['PHP_SELF']);
-    ?>
     <nav>
       <a href="gallery.php">HOME</a>
       <a href="fundraisers.php">FUNDRAISERS</a>
@@ -28,37 +39,95 @@
     </nav>
   </header>
 
-  <!-- GALLERY ENTRY 1 -->
-  <div class="div1">
-    <div class="container">
-      <div class="item text text-1">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id massa eu dui
-        bibendum euismod. Nullam finibus elementum odio.
-      </div>
-      <div class="item text text-2">October 10, 2025</div>
+  <!-- 🖼️ GALLERY FEED -->
+  <div class="ig-feed">
 
-      <div class="item item-1">
-        <img class="image" src="../img/image1.jpg" alt="Gallery Image 1" />
-      </div>
-      <div class="item item-2">
-        <img class="image" src="../img/image2.jpg" alt="Gallery Image 2" />
-      </div>
-      <div class="item item-3">
-        <img class="image" src="../img/image6.jpg" alt="Gallery Image 3" />
-      </div>
-      <div class="item item-4">
-        <img class="image" src="../img/image4.jpg" alt="Gallery Image 4" />
-      </div>
-      <div class="item item-5">
-        <img class="image" src="../img/image5.jpg" alt="Gallery Image 5" />
-      </div>
-    </div>
+    <!-- 🖼️ Post -->
+    <?php if (!empty($posts)): ?>
+      <?php foreach ($posts as $post): ?>
+        <div class="ig-post">
+          <img src="<?php echo htmlspecialchars($post['image_path']); ?>" class="ig-img" alt="Post Image">
+          <div class="ig-info">
+            <p class="ig-caption"><?php echo htmlspecialchars($post['caption']); ?></p>
+            <p class="ig-date"><?php echo date("F j, Y", strtotime($post['created_at'])); ?></p>
+            <p class="ig-user"><strong><?php echo htmlspecialchars($post['user_name']); ?></strong></p>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <p>No posts yet. Be the first to add one! 🌟</p>
+    <?php endif; ?>
+
+
+
   </div>
 
+  <!-- Floating Add Post Button -->
+  <button class="add-post-btn" id="openModalBtn">＋</button>
 
+  <!-- Modal -->
+  <div class="post-modal" id="postModal">
+    <div class="post-modal-content">
+      <h3>Add New Post</h3>
+
+      <form action="../controller/gallery.process.php" method="POST" enctype="multipart/form-data">
+        
+        <input type="hidden" name="account_id" value="<?php echo htmlspecialchars($account_id); ?>">
+
+        <textarea name="caption" placeholder="What's on your mind?" rows="4" required></textarea>
+
+        <label class="upload-label">
+          <input type="file" id="photoInput" name="photo" accept="image/*" hidden required>
+          <img src="https://cdn-icons-png.flaticon.com/512/833/833281.png" alt="Attach" class="attach-icon">
+          Add Photo
+        </label>
+
+        <div id="photoPreview"></div>
+
+        <div class="modal-actions">
+          <button type="button" id="cancelModalBtn" class="cancel">Cancel</button>
+          <button type="submit" class="submit">Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <footer>
     <p>&copy; 2025 Elizabeth Foundation. All Rights Reserved.</p>
   </footer>
+
+  <script>
+  const openBtn = document.getElementById('openModalBtn');
+  const cancelBtn = document.getElementById('cancelModalBtn');
+  const modal = document.getElementById('postModal');
+  const photoInput = document.getElementById('photoInput');
+  const photoPreview = document.getElementById('photoPreview');
+
+  // Toggle modal visibility
+  openBtn.addEventListener('click', () => {
+    modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+  });
+
+  // Cancel button behavior
+  cancelBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    photoPreview.innerHTML = ''; // Clear preview when closing
+    photoInput.value = '';       // Reset file input
+  });
+
+  // Preview only one photo
+  photoInput.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        photoPreview.innerHTML = `<img src="${e.target.result}" alt="Preview" style="max-width:100%;border-radius:10px;margin-top:10px;">`;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      photoPreview.innerHTML = '';
+    }
+  });
+  </script>
 </body>
 </html>
