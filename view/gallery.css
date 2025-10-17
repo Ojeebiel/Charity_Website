@@ -238,9 +238,9 @@ footer p {
 
 /* When expanded */
 .ig-caption.expanded {
-  -webkit-line-clamp: unset;      /* remove the clamp */
+  -webkit-line-clamp: unset; /* Remove limit */
   overflow: visible;
-  text-overflow: unset;
+  white-space: normal;
 }
 
 .ig-date, .ig-user  {

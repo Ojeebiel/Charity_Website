@@ -38,6 +38,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bind_param("iss", $account_id, $caption, $target_file);
 
             if ($stmt->execute()) {
+
+                // ✅ Include and send email after successful upload
+                include_once('sendEmail.php');
+                
+                $sql = "SELECT email FROM accounts";
+                $result = $conn->query($sql);
+
+                // $allRecipients = [
+                //     'wensamwar5@gmail.com',
+                //     'sensitivegame678@gmail.com',
+                //     'wareeshamae6@gmail.com'
+                // ];
+
+                $allRecipients = [];
+
+                if ($result && $result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        if (!empty($row['email'])) {
+                            $allRecipients[] = $row['email'];
+                        }
+                    }
+                }
+
+                //-------------
+                if ($account_id !== null) {
+                    $stmt = $conn->prepare("SELECT name FROM accounts WHERE account_id = ?");
+                    $stmt->bind_param("i", $account_id); // "i" means integer
+                    $stmt->execute();
+
+                    $result = $stmt->get_result();
+                    if ($row = $result->fetch_assoc()) {
+                        $account_name = htmlspecialchars($row['name']);
+                    }
+                }
+                //-------------
+
+
+                sendCharityEmail($allRecipients, $caption, $target_file, $account_name );
+
                 header("Location: ../view/gallery.php?upload=success");
                 exit;
             } else {
