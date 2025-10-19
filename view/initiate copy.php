@@ -1,0 +1,113 @@
+<?php
+session_start();
+// Get the data from session
+// $rows = $_SESSION['fundraisers'] ?? [];
+// require '../controller/fundraisers.process.php';
+echo "hi";
+$account_id = $_SESSION['account_id'];
+echo $account_id;
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&family=Open+Sans:ital@0;1&display=swap" rel="stylesheet">
+
+  <title>Initiate</title>
+  <link rel="stylesheet" href="initiate.css">
+</head>
+
+<body>
+  <header>
+    <a href="#" class="tabFont">ELIZABETH FOUNDATION</a>
+    <nav>    
+      <a href="gallery.php">HOME</a>
+      <a href="fundraisers.php">FUNDRAISERS</a>
+      <a href="initiate.php">INITIATE</a>
+      <a href="#">LOG OUT</a>
+    </nav>
+  </header>
+
+  <div class="container">
+
+<form action="../controller/initiate.process.php" method="POST" enctype="multipart/form-data">
+
+  <input type="hidden" name="account_id" value="<?php echo $account_id; ?>">
+
+  <label for="name">Name of Fundraising</label>
+  <input type="text" placeholder="Enter Name of Fundraising" id="name" name="name" required>
+
+  <label for="date">Date of Fundraising</label>
+  <input type="date" id="date" name="date" required>
+
+  <label for="date">Amount Goal</label>
+  <input type="text" placeholder="Enter Account Number" id="accountNumber" name="accountNumber" required>
+
+  <label for="amount">Account Number</label>
+  <input type="tel" placeholder="+63xxxxxxxxxx" pattern="^\+63\d{10}$" id="amount" name="amount" required>
+
+  <label for="description">Description</label>
+  <input type="text" placeholder="Enter Description" id="description" name="description" required>
+
+  <label for="location">Location</label>
+  <div id="locationBtn">
+    <img src="" alt="Map Icon">Select Location
+  </div>
+
+  <!-- <div id="locationModal" class="modal">
+    <div class="modal-content">
+      <span class="close-location">&times;</span>
+      <h3>Select Fundraiser Location</h3>
+      <div class="map-placeholder">
+        <p>🗺️ Map Placeholder Area</p>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- QR Code Upload -->
+  <label id="qrBtn">
+    <img src="../img/clip_Img.png" alt="Icon">
+    Add QR Code
+    <input type="file" name="qrImage" id="qrFileInput" style="display:none;">
+  </label>
+  <span id="qrFileName" style="margin-left:10px;font-family:'Open Sans',sans-serif;color:#555;"></span>
+
+  <!-- Attachments Upload -->
+  <label id="attachBtn">
+    <img src="../img/clip_Img.png" alt="Icon">
+    Add Attachments
+    <input type="file" name="attachment" id="attachFileInput" style="display:none;">
+  </label>
+  <span id="attachFileName" style="margin-left:10px;font-family:'Open Sans',sans-serif;color:#555;"></span>
+
+  <!-- <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <input class="form-control" type="file" name="uploadfile" required>
+    </div>
+  </div> -->
+
+  <div class="div3">
+    <button type="submit">Initiate</button>
+    <!-- <button type="submit" name="upload">Initiate</button> -->
+
+  </div>
+
+</form>
+
+    
+
+  </div>
+
+  <footer>
+    <p>&copy; 2024 Elizabeth Foundation. All Rights Reserved.</p>
+  </footer>
+  <script src="initiate.js"></script>
+</body>
+</html>

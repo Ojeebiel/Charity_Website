@@ -1,12 +1,6 @@
 <?php
 session_start();
-// Get the data from session
-// $rows = $_SESSION['fundraisers'] ?? [];
-// require '../controller/fundraisers.process.php';
-echo "hi";
-$account_id = $_SESSION['account_id'];
-echo $account_id;
-
+$account_id = $_SESSION['account_id'] ?? 0;
 ?>
 
 <!DOCTYPE html>
@@ -14,13 +8,15 @@ echo $account_id;
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&family=Open+Sans:ital@0;1&display=swap" rel="stylesheet">
-
   <title>Initiate</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <link rel="stylesheet" href="initiate.css">
+    <link
+    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&family=Jost:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital@0;1&display=swap"
+    rel="stylesheet"
+  />
 </head>
 
 <body>
@@ -29,74 +25,103 @@ echo $account_id;
     <nav>    
       <a href="gallery.php">HOME</a>
       <a href="fundraisers.php">FUNDRAISERS</a>
-      <a href="initiate.php">INITIATE</a>
+      <a href="initiate.php" class="active">INITIATE</a>
       <a href="#">LOG OUT</a>
     </nav>
   </header>
 
   <div class="container">
+    <form action="../controller/initiate.process.php" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="account_id" value="<?php echo htmlspecialchars($account_id); ?>">
+      <input type="hidden" name="latitude" id="latitude">
+      <input type="hidden" name="longitude" id="longitude">
+      <input type="hidden" name="address" id="address">
 
-<form action="../controller/initiate.process.php" method="POST" enctype="multipart/form-data">
+      <label for="name">Name of Fundraising</label>
+      <input type="text" id="name" name="name" placeholder="Enter Name of Fundraising" required>
 
-  <input type="hidden" name="account_id" value="<?php echo $account_id; ?>">
+      <label for="date">Date of Fundraising</label>
+      <input type="date" id="date" name="date" required>
 
-  <label for="name">Name of Fundraising</label>
-  <input type="text" placeholder="Enter Name of Fundraising" id="name" name="name" required>
+      <label for="accountNumber">Amount Goal</label>
+      <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter Amount Goal" required>
 
-  <label for="date">Date of Fundraising</label>
-  <input type="date" id="date" name="date" required>
+      <label for="amount">Account Number</label>
+      <input type="tel" id="amount" name="amount" placeholder="+63xxxxxxxxxx" pattern="^\+63\d{10}$" required>
 
-  <label for="amount">Amount Goal</label>
-  <input type="text" placeholder="Enter Amount Goal" id="amount" name="amount" required>
+      <label for="description">Description</label>
+      <input type="text" id="description" name="description" placeholder="Enter Description" required>
 
-  <label for="description">Description</label>
-  <input type="text" placeholder="Enter Description" id="description" name="description" required>
+      <!-- 🌍 Select Location -->
+      <label for="location">Location</label>
+      <button type="button" id="openMapBtn" class="location-btn">Select Location</button>
+      <p id="locationPreview" style="color:#555;font-family:'Open Sans',sans-serif;"></p>
 
-  <label for="location">Location</label>
-  <div id="locationBtn">
-    <img src="" alt="Map Icon">Select Location
-  </div>
+      <div id="mapModal" class="modal">
+        <div class="modal-content location-modal-content">
+          <span class="close">&times;</span>
+          <h3>Select Fundraiser Location</h3>
 
-  <!-- <div id="locationModal" class="modal">
-    <div class="modal-content">
-      <span class="close-location">&times;</span>
-      <h3>Select Fundraiser Location</h3>
-      <div class="map-placeholder">
-        <p>🗺️ Map Placeholder Area</p>
+          <div class="location-controls">
+            
+            <div class="location-search">
+              <input type="text" id="addressInput" placeholder="Search address (e.g., Manila)">
+              <button class="location-btn" onclick="searchAddress()">Search</button>
+            </div>
+
+            <div class="coordinate-inputs">
+              <div class="coord-field">
+                <label for="latInput">Latitude:</label>
+                <input type="text" id="latInput" placeholder="14.5995">
+              </div>
+
+              <div class="coord-field">
+                <label for="lonInput">Longitude:</label>
+                <input type="text" id="lonInput" placeholder="120.9842">
+              </div>
+
+              <button class="location-btn" onclick="goToCoordinates()">Go</button>
+            </div>
+
+
+            <div class="location-actions">
+              <button class="location-btn" onclick="getCurrentLocation()">📍 Use Current Location</button>
+            </div>
+          </div>
+
+          <p id="output" class="location-output"></p>
+
+          <div id="map" class="map-container"></div>
+
+          <button type="button" id="saveBtn" class="save-location-btn">Save Location</button>
+        </div>
       </div>
-    </div>
-  </div> -->
-
-  <label id="myBtn">
-    <img src="../img/clip_Img.png" alt="Icon">
-    Add Attachments
-    <input type="file" name="image" id="fileInput" style="display:none;">
-  </label>
-  <span id="fileName" style="margin-left: 10px; font-family: 'Open Sans', sans-serif; color: #555;"></span>
 
 
-  <!-- <div id="myModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <input class="form-control" type="file" name="uploadfile" required>
-    </div>
-  </div> -->
+      <!-- 📷 QR Code -->
+      <label id="qrBtn">
+        <img src="../img/clip_Img.png" alt="QR Icon"> Add QR Code
+        <input type="file" name="qrImage" id="qrFileInput" style="display:none;">
+      </label>
+      <span id="qrFileName"></span>
 
-  <div class="div3">
-    <button type="submit">Initiate</button>
-    <!-- <button type="submit" name="upload">Initiate</button> -->
+      <!-- 📎 Attachment -->
+      <label id="attachBtn">
+        <img src="../img/clip_Img.png" alt="Attach Icon"> Add Attachment
+        <input type="file" name="attachment" id="attachFileInput" style="display:none;">
+      </label>
+      <span id="attachFileName"></span>
 
-  </div>
-
-</form>
-
-    
-
+      <div class="div3">
+        <button type="submit">Initiate</button>
+      </div>
+    </form>
   </div>
 
   <footer>
     <p>&copy; 2024 Elizabeth Foundation. All Rights Reserved.</p>
   </footer>
+
   <script src="initiate.js"></script>
 </body>
 </html>

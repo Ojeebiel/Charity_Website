@@ -1,4 +1,6 @@
-/* General Styles */
+/* ================================
+   GENERAL STYLES
+================================ */
 body {
   font-family: "Open Sans", sans-serif;
   color: #e5533f;
@@ -7,7 +9,9 @@ body {
   background-color: #f9f9f9;
 }
 
-/* Header (same style as gallery.css) */
+/* ================================
+   HEADER (Matches gallery.css)
+================================ */
 header {
   display: flex;
   justify-content: space-between;
@@ -36,28 +40,34 @@ nav a {
   transition: color 0.3s ease, border-bottom 0.3s ease;
 }
 
-nav a:hover {
+nav a:hover,
+nav a.active {
   color: #e94e3f;
   border-bottom: 2px solid #e94e3f;
 }
 
-/* Footer (same style as gallery.css) */
+/* ================================
+   FOOTER
+================================ */
 footer {
   background-color: #e94e3f;
   color: white;
   text-align: center;
   padding: 20px;
   font-size: 12px;
+  margin-top: 60px;
 }
 
 footer p {
   margin: 0;
 }
 
-/* Form Layout */
+/* ================================
+   FORM + CONTAINER
+================================ */
 .container {
   width: 60%;
-  margin: 150px auto 120px auto; /* space for header & footer */
+  margin: 150px auto 120px auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -78,7 +88,10 @@ label {
   display: block;
 }
 
-input[type="text"], input[type="date"]{
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="tel"] {
   display: block;
   width: 100%;
   margin-bottom: 20px;
@@ -89,9 +102,12 @@ input[type="text"], input[type="date"]{
   font-size: 14px;
 }
 
+/* ================================
+   BUTTONS
+================================ */
 button {
   background-color: #e5533f;
-  width: 120px;
+  width: auto;
   height: 45px;
   border-radius: 50px;
   color: white;
@@ -106,133 +122,99 @@ button:hover {
   background-color: #c84233;
 }
 
-#myBtn {
-  background-color: #ffffff;
+/* Upload & Location Buttons */
+#qrBtn,
+#attachBtn,
+#locationBtn {
+  background-color: #fff;
   width: 220px;
   color: #e5533f;
   font-size: 18px;
   font-family: "Josefin Sans", sans-serif;
-  margin-bottom: 10px;
-  border: none;
+  margin-bottom: 15px;
+  border: 1px solid #e5533f;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 10px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 30px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-#myBtn img {
-  width: 20px;
-  height: 30px;
+#qrBtn:hover,
+#attachBtn:hover,
+#locationBtn:hover {
+  background-color: #e5533f;
+  color: #fff;
+}
+
+#qrBtn img,
+#attachBtn img,
+#locationBtn img {
+  width: 15px;
+  height: 25px;
   margin-right: 8px;
 }
 
+/* Align save button area */
 .div3 {
   display: flex;
   justify-content: flex-end;
 }
 
-/* Modal styles */
+/* ================================
+   MODAL (Location + Map)
+================================ */
 .modal {
   display: none;
-  position: fixed; 
-  z-index: 1; 
-  padding-top: 100px; 
+  position: fixed;
+  z-index: 1000;
   left: 0;
   top: 0;
-  width: 100%; 
-  height: 100%; 
-  overflow: auto; 
-  background-color: rgba(0,0,0,0.4); 
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.close:hover {
-  color: #000;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
-  }
-
-  nav {
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .container {
-    width: 85%;
-    margin: 160px auto 130px auto;
-  }
-
-  form {
-    padding: 20px;
-  }
-}
-
-/* Location Button */
-#locationBtn {
-  background-color: #ffffff;
-  width: 220px;
-  color: #e5533f;
-  font-size: 20px;
-  font-family: "Josefin Sans", sans-serif;
-  margin-bottom: 20px;
-  border: 1px solid #e5533f;
-  border-radius: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-#locationBtn img {
-  width: 25px;
-  height: 25px;
-  margin-right: 8px;
-}
-
-#locationBtn:hover {
-  background-color: #e5533f;
-  color: white;
-}
-
-/* Location Modal */
-#locationModal .modal-content {
+/* Main Modal Box */
+.modal-content,
+.location-modal-content {
   background-color: #fff;
-  margin: auto;
-  padding: 20px;
+  margin: 5% auto;
+  padding: 30px;
   border: 1px solid #ccc;
-  border-radius: 10px;
-  width: 70%;
+  border-radius: 12px;
+  width: 85%; /* wider width */
+  max-width: 1100px; /* prevent ultra-wide screens */
   text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  font-family: "Open Sans", sans-serif;
 }
 
-.close-location {
+/* Title inside modal */
+.location-modal-content h3 {
+  font-family: "Josefin Sans", sans-serif;
+  color: #e5533f;
+  margin-bottom: 20px;
+}
+
+/* Map stays compact in height but wide in layout */
+.map-container,
+#map {
+  width: 100%;
+  height: 380px;
+  margin-top: 15px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid #eee;
+}
+
+/* Close button style */
+.close-location,
+.close {
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -240,40 +222,228 @@ button:hover {
   cursor: pointer;
 }
 
-.close-location:hover {
+.close-location:hover,
+.close:hover {
   color: #000;
 }
 
-.map-placeholder {
-  width: 100%;
-  height: 400px;
-  background-color: #f2f2f2;
-  border: 2px dashed #ccc;
-  border-radius: 10px;
+/* ================================
+   LOCATION MODAL CONTROLS (Perfect Alignment)
+================================ */
+.location-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+/* Keep rows tidy and centered */
+.location-search,
+.coordinate-inputs,
+.location-actions {
+  display: flex;
+  align-items: center;   /* vertical alignment */
+  justify-content: center; /* horizontal centering */
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Input and button styling */
+.location-search input,
+.coord-field input,
+.coordinate-inputs input {
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #b7b7b7;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 220px;
+  box-sizing: border-box;
+}
+
+.location-search label,
+.location-search input,
+.location-search button,
+.coordinate-inputs label,
+.coordinate-inputs input,
+.coordinate-inputs button {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: #999;
-  font-size: 18px;
-  margin-top: 20px;
-  font-family: "Open Sans", sans-serif;
-}
-
-#myBtn input[type="file"] {
-  display: none; /* Hide the real input */
-}
-
-#fileName {
-  font-size: 14px;
-  color: #333;
-  margin-top: 5px;
-  display: inline-block;
-  max-width: auto;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-  word-wrap: break-word;
+  margin: 0;
   vertical-align: middle;
 }
 
 
+/* Label next to input */
+.coord-field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.coord-field label {
+  margin: 0;
+  font-size: 14px;
+  color: #e5533f;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+/* Buttons visually equal to inputs */
+.location-btn {
+  height: 42px;
+  padding: 0 20px;
+  background-color: #fff;
+  color: #e5533f;
+  border: 1px solid #e5533f;
+  border-radius: 30px;
+  font-family: "Josefin Sans", sans-serif;
+  cursor: pointer;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.location-btn:hover {
+  background-color: #e5533f;
+  color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .location-search,
+  .coordinate-inputs,
+  .location-actions {
+    flex-direction: column;
+  }
+
+  .location-btn,
+  .location-search input,
+  .coordinate-inputs input {
+    width: 100%;
+  }
+}
+
+
+.location-btn:hover {
+  background-color: #e5533f;
+  color: #fff;
+}
+
+.map-container {
+  width: 100%;
+  height: 400px;
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid #eee;
+}
+
+.save-location-btn {
+  margin-top: 20px;
+  background-color: #e5533f;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 30px;
+  font-family: "Josefin Sans", sans-serif;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.save-location-btn:hover {
+  background-color: #c84233;
+}
+
+.location-output {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Fix alignment of Search and Go buttons with inputs */
+.location-search,
+.coordinate-inputs {
+  display: flex;
+  align-items: center;     /* vertical alignment */
+  justify-content: center; /* horizontal centering */
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Make input and button same height */
+.location-search input,
+.coordinate-inputs input,
+.location-btn {
+  height: 42px;            /* consistent height */
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Optional: make buttons match input height visually */
+.location-btn {
+  padding: 0 18px;
+  line-height: normal;
+}
+
+/* Make inputs and buttons line up perfectly */
+.location-search,
+.coordinate-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Coordinate field group */
+.coord-field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Remove weird label spacing */
+.coord-field label {
+  margin: 0;
+  font-size: 14px;
+  color: #e5533f;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+/* Inputs consistent height */
+.location-search input,
+.coord-field input {
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #b7b7b7;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 180px;
+  box-sizing: border-box;
+}
+
+/* Buttons match height with inputs */
+.location-btn {
+  height: 42px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: normal;
+  border-radius: 30px;
+  background-color: #fff;
+  color: #e5533f;
+  border: 1px solid #e5533f;
+  font-family: "Josefin Sans", sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.location-btn:hover {
+  background-color: #e5533f;
+  color: #fff;
+}

@@ -115,5 +115,8 @@ require '../controller/fundraisers.process.php';
     </div>
   </div>
 
+  <script src="fundraisers.js"></script>
+
+
 </body>
 </html>
