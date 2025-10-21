@@ -32,17 +32,19 @@ require '../controller/fundraisers.process.php';
     <?php else: ?>
       <?php foreach ($myFundraisers as $row): ?>
         <div class="project">
-          <img class="image" src="../<?php echo $row['image']; ?>" alt="Project Image" />
+          <img class="image" src="<?php echo $row['image']; ?>" alt="Project Image" />
           <div class="details">
             <div class="project-header">
               <p class="tabFont project-title"><?php echo htmlspecialchars($row['name']); ?></p>
               <p class="project-date"><?php echo htmlspecialchars($row['date']); ?></p>
             </div>
             <p><?php echo htmlspecialchars($row['description']); ?></p>
+                      <?php echo htmlspecialchars($row['address']); ?>
+
             <button 
               class="contributor-button" 
               data-project="<?php echo htmlspecialchars($row['name']); ?>"
-              data-qr="../<?php echo htmlspecialchars($row['image']); ?>"
+              data-qr="<?php echo htmlspecialchars($row['image']); ?>"
             >CONTRIBUTOR</button>
             <div class="progress-bar">
               <div class="progress"></div>
@@ -58,17 +60,23 @@ require '../controller/fundraisers.process.php';
     <h2 class="section-title">Other Fundraisers</h2>
     <?php foreach ($otherFundraisers as $row): ?>
       <div class="project">
-        <img class="image" src="../<?php echo $row['image']; ?>" alt="Project Image" />
+        <img class="image" src="<?php echo $row['image']; ?>" alt="Project Image" />
         <div class="details">
           <div class="project-header">
             <p class="tabFont project-title"><?php echo htmlspecialchars($row['name']); ?></p>
             <p class="project-date"><?php echo htmlspecialchars($row['date']); ?></p>
           </div>
           <p><?php echo htmlspecialchars($row['description']); ?></p>
+
+
+          <!--added code 10-21-25 12:11pm-->
+          <?php echo htmlspecialchars($row['address']); ?>
+
+
           <button 
             class="donate-button" 
             data-project="<?php echo htmlspecialchars($row['name']); ?>"
-            data-qr="../<?php echo htmlspecialchars($row['image']); ?>"
+            data-qr="<?php echo htmlspecialchars($row['image']); ?>"
           >DONATE</button>
           <div class="progress-bar">
             <div class="progress"></div>
@@ -84,7 +92,7 @@ require '../controller/fundraisers.process.php';
     <p>&copy; 2024 Elizabeth Foundation. All Rights Reserved.</p>
   </footer>
 
-  <!-- 💰 Donation Modal -->
+  <!-- Donation Modal -->
   <div id="donateModal" class="modal">
     <div class="modal-content">
       <h2>Donate</h2>
@@ -100,16 +108,16 @@ require '../controller/fundraisers.process.php';
     </div>
   </div>
 
-  <!-- 👥 Contributor Modal -->
+  <!-- Contributor Modal -->
   <div id="contributorModal" class="modal">
     <div class="modal-content">
       <h2>Contributors</h2>
       <p id="contributorProjectName" style="font-weight: bold;"></p>
       <p>This is a sample list of people who donated to this fundraiser. (You can later fetch real data from the database!)</p>
       <ul id="contributorList" style="text-align: left; margin: 10px 0;">
-        <li>✨ John Doe — ₱500.00</li>
-        <li>🌸 Maria Santos — ₱1,200.00</li>
-        <li>🔥 Alex Cruz — ₱300.00</li>
+        <li>John Doe — ₱500.00</li>
+        <li>Maria Santos — ₱1,200.00</li>
+        <li>Alex Cruz — ₱300.00</li>
       </ul>
       <button class="close-btn" id="closeContributor">Close</button>
     </div>

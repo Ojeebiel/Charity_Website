@@ -6,7 +6,7 @@ require '../model/dbconn.php';
 $account_id = $_SESSION['account_id'] ?? 0;
 
 // --- Fetch your own fundraisers ---
-$sql_my = "SELECT fundraiser_id, account_id, name, date, amount_goal, description, location, image 
+$sql_my = "SELECT fundraiser_id, account_id, name, date, amount_goal, description, address, image 
             FROM fundraisers 
             WHERE account_id = '$account_id'";
 $result_my = mysqli_query($conn, $sql_my);
@@ -16,7 +16,7 @@ while ($row = mysqli_fetch_assoc($result_my)) {
 }
 
 // --- Fetch fundraisers from other users ---
-$sql_others = "SELECT fundraiser_id, account_id, name, date, amount_goal, description, location, image 
+$sql_others = "SELECT fundraiser_id, account_id, name, date, amount_goal, description, address, image 
                 FROM fundraisers 
                 WHERE account_id != '$account_id'";
 $result_others = mysqli_query($conn, $sql_others);

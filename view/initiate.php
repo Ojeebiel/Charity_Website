@@ -72,12 +72,12 @@ $account_id = $_SESSION['account_id'] ?? 0;
             <div class="coordinate-inputs">
               <div class="coord-field">
                 <label for="latInput">Latitude:</label>
-                <input type="text" id="latInput" placeholder="14.5995">
+                <input type="text" id="latInput" placeholder="Enter Latitude Here">
               </div>
 
               <div class="coord-field">
                 <label for="lonInput">Longitude:</label>
-                <input type="text" id="lonInput" placeholder="120.9842">
+                <input type="text" id="lonInput" placeholder="Enter Longitude Here">
               </div>
 
               <button class="location-btn" onclick="goToCoordinates()">Go</button>
@@ -89,7 +89,7 @@ $account_id = $_SESSION['account_id'] ?? 0;
             </div>
           </div>
 
-          <p id="output" class="location-output"></p>
+          <!-- <p id="output" class="location-output"></p> -->
 
           <div id="map" class="map-container"></div>
 
