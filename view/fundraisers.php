@@ -1,5 +1,8 @@
 <?php
 session_start();
+$account_id = $_SESSION['account_id'];
+
+
 require '../controller/fundraisers.process.php';
 ?>
 <!DOCTYPE html>
@@ -39,7 +42,17 @@ require '../controller/fundraisers.process.php';
               <p class="project-date"><?php echo htmlspecialchars($row['date']); ?></p>
             </div>
             <p><?php echo htmlspecialchars($row['description']); ?></p>
-                      <?php echo htmlspecialchars($row['address']); ?>
+
+              <?php echo htmlspecialchars($row['address']); ?>
+              <button 
+                class="view-map-button"
+                data-lat="<?php echo htmlspecialchars($row['latitude']); ?>"
+                data-lon="<?php echo htmlspecialchars($row['longitude']); ?>"
+                data-address="<?php echo htmlspecialchars($row['address']); ?>"
+              >
+                View on Map
+            </button>
+
 
             <button 
               class="contributor-button" 
@@ -71,13 +84,28 @@ require '../controller/fundraisers.process.php';
 
           <!--added code 10-21-25 12:11pm-->
           <?php echo htmlspecialchars($row['address']); ?>
+          <button 
+              class="view-map-button"
+              data-lat="<?php echo htmlspecialchars($row['latitude']); ?>"
+              data-lon="<?php echo htmlspecialchars($row['longitude']); ?>"
+              data-address="<?php echo htmlspecialchars($row['address']); ?>"
+            >
+              View on Map
+          </button>
 
-
+      
           <button 
             class="donate-button" 
             data-project="<?php echo htmlspecialchars($row['name']); ?>"
             data-qr="<?php echo htmlspecialchars($row['image']); ?>"
-          >DONATE</button>
+            data-id="<?= htmlspecialchars($row['fundraiser_id']); ?>"
+            data-account="<?= htmlspecialchars($account_id); ?>"
+            data-recipient="<?= htmlspecialchars($row['account_id']); ?>"
+          >
+            DONATE
+          </button>
+
+
           <div class="progress-bar">
             <div class="progress"></div>
             <span class="progress-text">100 / <?php echo $row['amount_goal']; ?></span>
@@ -98,13 +126,23 @@ require '../controller/fundraisers.process.php';
       <h2>Donate</h2>
       <p>Scan this QR code or fill in the details for <strong id="projectName"></strong></p>
       <img id="qrImage" src="" alt="QR Code">
-      <input type="text" id="donorName" placeholder="Your Name" required>
-      <input type="number" id="donationAmount" placeholder="Enter amount (₱)" min="1" required>
-      <input type="text" id="referenceNumber" placeholder="Reference Number" required>
-      <div>
-        <button id="confirmDonate">Confirm</button>
-        <button class="close-btn" id="closeModal">Cancel</button>
-      </div>
+      <!-- <input type="text" id="donorName" placeholder="Your Name" required> -->
+       
+      <form id="donationForm" method="POST" action="../controller/fundraisers.process.php">
+        <input type="hidden" id="fundraiserId" name="fundraiser_id" value="">
+        <input type="hidden" id="accountId" name="account_id" value="">
+        <input type="hidden" id="recipientId" name="recipient_id" value="">
+
+
+        <input type="number" id="donationAmount" name="amount" placeholder="Enter amount (₱)" min="1" required>
+        <input type="text" id="referenceNumber" name="ref_number" placeholder="Reference Number" required>
+
+        <div>
+          <button type="submit" id="confirmDonate">Confirm</button>
+          <button type="button" class="close-btn" id="closeModal">Cancel</button>
+        </div>
+      </form>
+
     </div>
   </div>
 
@@ -123,7 +161,104 @@ require '../controller/fundraisers.process.php';
     </div>
   </div>
 
+  <!-- 🌍 Map Modal -->
+          <div id="mapViewModal" class="modal">
+            <div class="modal-content location-modal-content">
+              <span class="close" id="closeMapView">&times;</span>
+              <h3 id="mapAddressTitle">Fundraiser Location</h3>
+              <div id="mapView" style="height: 400px; border-radius: 10px; margin-top: 10px;"></div>
+            </div>
+          </div>
+          
   <script src="fundraisers.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+  /*
+    ✅ Fixed "View on Map" Modal Script
+    - Shows only one map
+    - Reuses the same Leaflet instance each time
+    - No more broken or duplicated maps
+  */
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const mapModal = document.getElementById("mapViewModal");
+    const closeMapView = document.getElementById("closeMapView");
+    const mapAddressTitle = document.getElementById("mapAddressTitle");
+    let mapInstance = null;
+    let markerInstance = null;
+
+    // Open modal function
+    function openModal() {
+      mapModal.style.display = "flex";
+    }
+
+    // Close modal function
+    function closeModal() {
+      mapModal.style.display = "none";
+    }
+
+    // Initialize map only once
+    function initMap(lat, lon) {
+      if (!mapInstance) {
+        mapInstance = L.map("mapView", { scrollWheelZoom: true }).setView([lat, lon], 15);
+
+        // Add tile layer once
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+        }).addTo(mapInstance);
+      } else {
+        // Update view if map already exists
+        mapInstance.setView([lat, lon], 15);
+      }
+
+      // Add or move marker
+      if (markerInstance) {
+        markerInstance.setLatLng([lat, lon]);
+      } else {
+        markerInstance = L.marker([lat, lon]).addTo(mapInstance);
+      }
+
+      // Wait a bit to fix map rendering
+      setTimeout(() => mapInstance.invalidateSize(), 300);
+    }
+
+    // Handle all "View on Map" buttons
+    document.querySelectorAll(".view-map-button").forEach(button => {
+      button.addEventListener("click", () => {
+        const lat = parseFloat(button.dataset.lat);
+        const lon = parseFloat(button.dataset.lon);
+        const address = button.dataset.address || "Unknown location";
+
+        if (isNaN(lat) || isNaN(lon)) {
+          alert("⚠️ Location data missing for this fundraiser.");
+          return;
+        }
+
+        // Set modal title
+        mapAddressTitle.textContent = address;
+
+        // Open modal and show map
+        openModal();
+        initMap(lat, lon);
+
+        // Add popup to marker
+        if (markerInstance) {
+          markerInstance.bindPopup(`<b>${address}</b>`).openPopup();
+        }
+      });
+    });
+
+    // Close modal when clicking X or outside
+    closeMapView.addEventListener("click", closeModal);
+    window.addEventListener("click", (e) => {
+      if (e.target === mapModal) closeModal();
+    });
+  });
+  </script>
+
+
 
 
 </body>

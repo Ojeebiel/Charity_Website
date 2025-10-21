@@ -100,7 +100,7 @@ function fetchGalleryPosts($conn) {
     $posts = [];
     $query = "SELECT g.*, a.name AS user_name 
             FROM gallery g
-            JOIN accounts a ON g.account_id = a.account_id
+            LEFT JOIN accounts a ON g.account_id = a.account_id
             ORDER BY g.created_at DESC";
     $result = $conn->query($query);
 
