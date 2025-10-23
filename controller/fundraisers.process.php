@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $account_id = $_SESSION['account_id'] ?? 0;
 
 // --- Fetch your own fundraisers ---
-$sql_my = "SELECT fundraiser_id, account_id, name, date, amount_goal, description, address, longitude, latitude, image 
+$sql_my = "SELECT fundraiser_id, account_id, name, date, amount_donated, amount_goal, description, address, longitude, latitude, image, date 
             FROM fundraisers 
             WHERE account_id = '$account_id'";
 $result_my = mysqli_query($conn, $sql_my);
@@ -24,15 +24,39 @@ while ($row = mysqli_fetch_assoc($result_my)) {
 }
 
 // --- Fetch fundraisers from other users ---
-$sql_others = "SELECT fundraiser_id, account_id, name, date, amount_goal, description, address, longitude, latitude, image 
-                FROM fundraisers 
-                WHERE account_id != '$account_id'";
-$result_others = mysqli_query($conn, $sql_others);
+// --- Fetch fundraisers from other users (still open & not owned by current user) ---
+$sql_others = "
+    SELECT 
+        fundraiser_id, 
+        account_id, 
+        name, 
+        date, 
+        amount_goal, 
+        description, 
+        address, 
+        longitude, 
+        latitude, 
+        image, 
+        created_at,
+        amount_donated
+    FROM 
+        fundraisers
+    WHERE 
+        account_id != ?
+        AND amount_donated < amount_goal
+        AND date != CURDATE()
+";
+
+$stmt = $conn->prepare($sql_others);
+$stmt->bind_param("i", $account_id);
+$stmt->execute();
+$result_others = $stmt->get_result();
+
 $otherFundraisers = [];
-while ($row = mysqli_fetch_assoc($result_others)) {
+while ($row = $result_others->fetch_assoc()) {
     $otherFundraisers[] = $row;
 }
-print_r($_POST);
+
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

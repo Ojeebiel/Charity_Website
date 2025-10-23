@@ -30,20 +30,24 @@ require '../controller/fundraisers.process.php';
 
     <!-- 🔹 YOUR FUNDRAISERS SECTION -->
     <h2 class="section-title">My Fundraisers</h2>
+
     <?php if (count($myFundraisers) === 0): ?>
       <p class="no-fundraiser">You haven’t added any fundraisers yet. <a href="initiate.php">Add a fundraiser now!</a></p>
     <?php else: ?>
       <?php foreach ($myFundraisers as $row): ?>
-        <div class="project">
-          <img class="image" src="<?php echo $row['image']; ?>" alt="Project Image" />
-          <div class="details">
-            <div class="project-header">
-              <p class="tabFont project-title"><?php echo htmlspecialchars($row['name']); ?></p>
-              <p class="project-date"><?php echo htmlspecialchars($row['date']); ?></p>
-            </div>
-            <p><?php echo htmlspecialchars($row['description']); ?></p>
+        <div class="project my-fundraiser-layout">
+          
+          <!-- LEFT SIDE: Fundraiser details -->
+          <div class="fundraiser-left">
+            <img class="image" src="<?php echo $row['image']; ?>" alt="Project Image" />
+            <div class="details">
+              <div class="project-header">
+                <p class="tabFont project-title"><?php echo htmlspecialchars($row['name']); ?></p>
+                <p class="project-date"><?php echo htmlspecialchars($row['date']); ?></p>
+              </div>
+              <p><?php echo htmlspecialchars($row['description']); ?></p>
+              <p><?php echo htmlspecialchars($row['address']); ?></p>
 
-              <?php echo htmlspecialchars($row['address']); ?>
               <button 
                 class="view-map-button"
                 data-lat="<?php echo htmlspecialchars($row['latitude']); ?>"
@@ -51,22 +55,92 @@ require '../controller/fundraisers.process.php';
                 data-address="<?php echo htmlspecialchars($row['address']); ?>"
               >
                 View on Map
-            </button>
+              </button>
 
-
-            <button 
-              class="contributor-button" 
-              data-project="<?php echo htmlspecialchars($row['name']); ?>"
-              data-qr="<?php echo htmlspecialchars($row['image']); ?>"
-            >CONTRIBUTOR</button>
-            <div class="progress-bar">
-              <div class="progress"></div>
-              <span class="progress-text">100 / <?php echo $row['amount_goal']; ?></span>
+              <div class="progress-bar">
+                <div class="progress"></div>
+                <span class="progress-text"><?php echo $row['amount_donated']; ?> / <?php echo $row['amount_goal']; ?></span>
+              </div>
             </div>
           </div>
+
+          <!-- RIGHT SIDE: Contributors -->
+          <div class="fundraiser-right">
+            <h3>Contributors</h3>
+
+            <?php 
+              // ✅ Fetch contributors from DB
+              $sql =  "SELECT 
+                          d.donation_id, 
+                          a.name, 
+                          d.amount, 
+                          d.ref_number
+                      FROM 
+                          donation d
+                      JOIN 
+                          accounts a ON d.account_id = a.account_id
+                      WHERE 
+                          d.recipient_id = ? 
+                          AND d.status = 0
+                          AND d.fundraiser_id = ?";
+
+              $stmt = $conn->prepare($sql);
+              $stmt->bind_param("ii", $account_id, $row['fundraiser_id']);
+              $stmt->execute();
+              $result = $stmt->get_result();
+
+              // Store contributors in an array
+              $contributors = [];
+              while ($donor = $result->fetch_assoc()) {
+                $contributors[] = $donor;
+              }
+            ?>
+
+            
+
+
+
+
+            <?php if (!empty($contributors)): ?>
+              <ul class="contributor-list">
+                <?php foreach ($contributors as $donor): ?>
+                  <li class="contributor-item">
+                    <div class="donor-info">
+                      <strong><?php echo htmlspecialchars($donor['name']); ?></strong><br>
+                      ₱<?php echo number_format($donor['amount'], 2); ?><br>
+                      <small>Ref: <?php echo htmlspecialchars($donor['ref_number']); ?></small>
+                    </div>
+
+                    <div class="donor-actions">
+                      <form action="../controller/funraisers.process.donation.php" method="POST" style="display:inline;">
+                        <input type="hidden" name="donation_id" value="<?php echo (int)$donor['donation_id']; ?>">
+                        <input type="hidden" name="status" value="1">
+                        <button type="submit" class="confirm-btn">Confirm</button>
+                      </form>
+
+                      <form action="../controller/funraisers.process.donation.php" method="POST" style="display:inline;">
+                        <input type="hidden" name="donation_id" value="<?php echo (int)$donor['donation_id']; ?>">
+                        <input type="hidden" name="status" value="2">
+                        <button type="submit" class="invalid-btn">Invalid</button>
+                      </form>
+                    </div>
+
+
+                  </li>
+                <?php endforeach; ?>
+              </ul>
+            <?php else: ?>
+              <p class="no-contributors">No contributions yet.</p>
+            <?php endif; ?>
+          </div>
+
+
+
+
         </div>
       <?php endforeach; ?>
     <?php endif; ?>
+
 
 
     <!-- 🔹 OTHER FUNDRAISERS SECTION -->
@@ -108,7 +182,7 @@ require '../controller/fundraisers.process.php';
 
           <div class="progress-bar">
             <div class="progress"></div>
-            <span class="progress-text">100 / <?php echo $row['amount_goal']; ?></span>
+            <span class="progress-text"><?php echo $row['amount_donated']; ?> / <?php echo $row['amount_goal']; ?></span>
           </div>
         </div>
       </div>
