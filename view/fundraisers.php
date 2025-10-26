@@ -72,7 +72,8 @@ require '../controller/fundraisers.process.php';
               // ✅ Fetch contributors from DB
               $sql =  "SELECT 
                           d.donation_id, 
-                          a.name, 
+                          a.name,
+                          a.mobile, 
                           d.amount, 
                           d.ref_number
                       FROM 
@@ -113,7 +114,12 @@ require '../controller/fundraisers.process.php';
 
                     <div class="donor-actions">
                       <form action="../controller/funraisers.process.donation.php" method="POST" style="display:inline;">
+                        
                         <input type="hidden" name="donation_id" value="<?php echo (int)$donor['donation_id']; ?>">
+                        <input type="hidden" name="mobile" value="<?php echo (int)$donor['mobile']; ?>">
+                        <input type="hidden" name="name" value="<?php echo htmlspecialchars($donor['name']); ?>">
+                        <input type="hidden" name="amount" value="<?php echo (int)$donor['amount']; ?>">
+
                         <input type="hidden" name="status" value="1">
                         <button type="submit" class="confirm-btn">Confirm</button>
                       </form>
@@ -221,7 +227,7 @@ require '../controller/fundraisers.process.php';
   </div>
 
   <!-- Contributor Modal -->
-  <div id="contributorModal" class="modal">
+  <!-- <div id="contributorModal" class="modal">
     <div class="modal-content">
       <h2>Contributors</h2>
       <p id="contributorProjectName" style="font-weight: bold;"></p>
@@ -233,7 +239,7 @@ require '../controller/fundraisers.process.php';
       </ul>
       <button class="close-btn" id="closeContributor">Close</button>
     </div>
-  </div>
+  </div> -->
 
   <!-- 🌍 Map Modal -->
           <div id="mapViewModal" class="modal">
@@ -249,87 +255,87 @@ require '../controller/fundraisers.process.php';
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
   <script>
-  /*
-    ✅ Fixed "View on Map" Modal Script
-    - Shows only one map
-    - Reuses the same Leaflet instance each time
-    - No more broken or duplicated maps
-  */
+    /*
+      ✅ Fixed "View on Map" Modal Script
+      - Shows only one map
+      - Reuses the same Leaflet instance each time
+      - No more broken or duplicated maps
+    */
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const mapModal = document.getElementById("mapViewModal");
-    const closeMapView = document.getElementById("closeMapView");
-    const mapAddressTitle = document.getElementById("mapAddressTitle");
-    let mapInstance = null;
-    let markerInstance = null;
+    document.addEventListener("DOMContentLoaded", () => {
+      const mapModal = document.getElementById("mapViewModal");
+      const closeMapView = document.getElementById("closeMapView");
+      const mapAddressTitle = document.getElementById("mapAddressTitle");
+      let mapInstance = null;
+      let markerInstance = null;
 
-    // Open modal function
-    function openModal() {
-      mapModal.style.display = "flex";
-    }
-
-    // Close modal function
-    function closeModal() {
-      mapModal.style.display = "none";
-    }
-
-    // Initialize map only once
-    function initMap(lat, lon) {
-      if (!mapInstance) {
-        mapInstance = L.map("mapView", { scrollWheelZoom: true }).setView([lat, lon], 15);
-
-        // Add tile layer once
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-        }).addTo(mapInstance);
-      } else {
-        // Update view if map already exists
-        mapInstance.setView([lat, lon], 15);
+      // Open modal function
+      function openModal() {
+        mapModal.style.display = "flex";
       }
 
-      // Add or move marker
-      if (markerInstance) {
-        markerInstance.setLatLng([lat, lon]);
-      } else {
-        markerInstance = L.marker([lat, lon]).addTo(mapInstance);
+      // Close modal function
+      function closeModal() {
+        mapModal.style.display = "none";
       }
 
-      // Wait a bit to fix map rendering
-      setTimeout(() => mapInstance.invalidateSize(), 300);
-    }
+      // Initialize map only once
+      function initMap(lat, lon) {
+        if (!mapInstance) {
+          mapInstance = L.map("mapView", { scrollWheelZoom: true }).setView([lat, lon], 15);
 
-    // Handle all "View on Map" buttons
-    document.querySelectorAll(".view-map-button").forEach(button => {
-      button.addEventListener("click", () => {
-        const lat = parseFloat(button.dataset.lat);
-        const lon = parseFloat(button.dataset.lon);
-        const address = button.dataset.address || "Unknown location";
-
-        if (isNaN(lat) || isNaN(lon)) {
-          alert("⚠️ Location data missing for this fundraiser.");
-          return;
+          // Add tile layer once
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+          }).addTo(mapInstance);
+        } else {
+          // Update view if map already exists
+          mapInstance.setView([lat, lon], 15);
         }
 
-        // Set modal title
-        mapAddressTitle.textContent = address;
-
-        // Open modal and show map
-        openModal();
-        initMap(lat, lon);
-
-        // Add popup to marker
+        // Add or move marker
         if (markerInstance) {
-          markerInstance.bindPopup(`<b>${address}</b>`).openPopup();
+          markerInstance.setLatLng([lat, lon]);
+        } else {
+          markerInstance = L.marker([lat, lon]).addTo(mapInstance);
         }
+
+        // Wait a bit to fix map rendering
+        setTimeout(() => mapInstance.invalidateSize(), 300);
+      }
+
+      // Handle all "View on Map" buttons
+      document.querySelectorAll(".view-map-button").forEach(button => {
+        button.addEventListener("click", () => {
+          const lat = parseFloat(button.dataset.lat);
+          const lon = parseFloat(button.dataset.lon);
+          const address = button.dataset.address || "Unknown location";
+
+          if (isNaN(lat) || isNaN(lon)) {
+            alert("⚠️ Location data missing for this fundraiser.");
+            return;
+          }
+
+          // Set modal title
+          mapAddressTitle.textContent = address;
+
+          // Open modal and show map
+          openModal();
+          initMap(lat, lon);
+
+          // Add popup to marker
+          if (markerInstance) {
+            markerInstance.bindPopup(`<b>${address}</b>`).openPopup();
+          }
+        });
+      });
+
+      // Close modal when clicking X or outside
+      closeMapView.addEventListener("click", closeModal);
+      window.addEventListener("click", (e) => {
+        if (e.target === mapModal) closeModal();
       });
     });
-
-    // Close modal when clicking X or outside
-    closeMapView.addEventListener("click", closeModal);
-    window.addEventListener("click", (e) => {
-      if (e.target === mapModal) closeModal();
-    });
-  });
   </script>
 
 
