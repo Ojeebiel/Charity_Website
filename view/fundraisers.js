@@ -24,9 +24,15 @@ document.querySelectorAll(".donate-button").forEach(button => {
     const fundraiserId = button.dataset.id;
     const accountId = button.dataset.account;
     const recipientId = button.dataset.recipient;
+    const number = button.dataset.number;
 
     projectNameEl.textContent = project;
     qrImage.src = qrSrc;
+
+    const numberEl = document.getElementById("fundraiserNumber");
+    numberEl.textContent = number ? `📱 Contact Number: ${number}` : "No contact number provided.";
+
+
     document.getElementById("fundraiserId").value = fundraiserId;
     document.querySelector('input[name="account_id"]').value = accountId;
     document.querySelector('input[name="recipient_id"]').value = recipientId;

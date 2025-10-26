@@ -177,10 +177,11 @@ require '../controller/fundraisers.process.php';
           <button 
             class="donate-button" 
             data-project="<?php echo htmlspecialchars($row['name']); ?>"
-            data-qr="<?php echo htmlspecialchars($row['image']); ?>"
+            data-qr="<?php echo htmlspecialchars($row['qr_image']); ?>"
             data-id="<?= htmlspecialchars($row['fundraiser_id']); ?>"
             data-account="<?= htmlspecialchars($account_id); ?>"
             data-recipient="<?= htmlspecialchars($row['account_id']); ?>"
+            data-number="<?= htmlspecialchars($row['number']); ?>"
           >
             DONATE
           </button>
@@ -206,6 +207,8 @@ require '../controller/fundraisers.process.php';
       <h2>Donate</h2>
       <p>Scan this QR code or fill in the details for <strong id="projectName"></strong></p>
       <img id="qrImage" src="" alt="QR Code">
+      <p id="fundraiserNumber" style="font-family:'Open Sans', sans-serif; color:#444; margin-bottom:15px;"></p>
+
       <!-- <input type="text" id="donorName" placeholder="Your Name" required> -->
        
       <form id="donationForm" method="POST" action="../controller/fundraisers.process.php">

@@ -25,7 +25,7 @@ while ($row = mysqli_fetch_assoc($result_my)) {
 
 // --- Fetch fundraisers from other users ---
 // --- Fetch fundraisers from other users (still open & not owned by current user) ---
-$sql_others = " SELECT fundraiser_id, account_id, name, date, amount_goal, description, address, longitude, latitude, image, created_at,amount_donated FROM fundraisers WHERE account_id != ? AND amount_donated < amount_goal AND date != CURDATE() ";
+$sql_others = " SELECT fundraiser_id, account_id, name, date, amount_goal, description, address, longitude, latitude, image, qr_image, number, created_at,amount_donated FROM fundraisers WHERE account_id != ? AND amount_donated < amount_goal AND date != CURDATE() ";
 
 $stmt = $conn->prepare($sql_others);
 $stmt->bind_param("i", $account_id);

@@ -43,11 +43,16 @@ $account_id = $_SESSION['account_id'] ?? 0;
       <label for="date">Date of Fundraising</label>
       <input type="date" id="date" name="date" required>
 
-      <label for="accountNumber">Amount Goal</label>
-      <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter Amount Goal" required>
+      <!-- <label for="accountNumber">Amount Goal</label>
+      <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter Amount Goal" required> -->
+      <label for="amount_goal">Amount Goal</label>
+      <input type="text" id="amount_goal" name="amount_goal" placeholder="Enter Amount Goal" required>
 
-      <label for="amount">Account Number</label>
-      <input type="tel" id="amount" name="amount" placeholder="+63xxxxxxxxxx" pattern="^\+63\d{10}$" required>
+
+      <!-- <label for="amount">Account Number</label>
+      <input type="tel" id="amount" name="amount" placeholder="+63xxxxxxxxxx" pattern="^\+63\d{10}$" required> -->
+      <label for="number">Account Number</label>
+      <input type="tel" id="number" name="number" placeholder="+63xxxxxxxxxx" pattern="^\+63\d{10}$" required>
 
       <label for="description">Description</label>
       <input type="text" id="description" name="description" placeholder="Enter Description" required>
@@ -98,19 +103,20 @@ $account_id = $_SESSION['account_id'] ?? 0;
       </div>
 
 
-      <!-- 📷 QR Code -->
+      <!-- 🧾 QR Code -->
       <label id="qrBtn">
         <img src="../img/clip_Img.png" alt="QR Icon"> Add QR Code
-        <input type="file" name="qrImage" id="qrFileInput" style="display:none;">
+        <input type="file" name="qr_image" id="qrFileInput" style="display:none;" accept="image/*">
       </label>
       <span id="qrFileName"></span>
 
-      <!-- 📎 Attachment -->
+      <!-- 📎 Attachment (image or document) -->
       <label id="attachBtn">
         <img src="../img/clip_Img.png" alt="Attach Icon"> Add Attachment
-        <input type="file" name="attachment" id="attachFileInput" style="display:none;">
+        <input type="file" name="image" id="attachFileInput" style="display:none;" accept="image/*,.pdf,.doc,.docx">
       </label>
       <span id="attachFileName"></span>
+
 
       <div class="div3">
         <button type="submit">Initiate</button>
