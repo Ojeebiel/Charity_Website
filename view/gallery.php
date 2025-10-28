@@ -32,7 +32,7 @@
       <a href="gallery.php">HOME</a>
       <a href="fundraisers.php">FUNDRAISERS</a>
       <a href="initiate.php">INITIATE</a>
-      <a href="#">LOG OUT</a>
+      <a href="../controller/logout.php">LOG OUT</a>
     </nav>
   </header>
 

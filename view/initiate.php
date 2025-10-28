@@ -1,6 +1,12 @@
 <?php
-session_start();
-$account_id = $_SESSION['account_id'] ?? 0;
+  session_start();
+  $account_id = $_SESSION['account_id'] ?? 0;
+
+  // Redirect if not logged in
+  if (!isset($_SESSION['account_id'])) {
+      header("Location: ../index.php");
+      exit;
+  }
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +32,7 @@ $account_id = $_SESSION['account_id'] ?? 0;
       <a href="gallery.php">HOME</a>
       <a href="fundraisers.php">FUNDRAISERS</a>
       <a href="initiate.php" class="active">INITIATE</a>
-      <a href="#">LOG OUT</a>
+      <a href="../controller/logout.php">LOG OUT</a>
     </nav>
   </header>
 

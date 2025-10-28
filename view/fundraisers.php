@@ -1,9 +1,12 @@
 <?php
-session_start();
-$account_id = $_SESSION['account_id'];
-
-
-require '../controller/fundraisers.process.php';
+  session_start();
+  $account_id = $_SESSION['account_id'];
+  // Redirect if not logged in
+  if (!isset($_SESSION['account_id'])) {
+      header("Location: ../index.php");
+      exit;
+  }
+  require '../controller/fundraisers.process.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +25,7 @@ require '../controller/fundraisers.process.php';
       <a href="gallery.php">HOME</a>
       <a href="fundraisers.php">FUNDRAISERS</a>
       <a href="initiate.php">INITIATE</a>
-      <a href="#">LOG OUT</a>
+      <a href="../controller/logout.php">LOG OUT</a>
     </nav>
   </header>
 
