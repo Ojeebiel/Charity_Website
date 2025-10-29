@@ -192,3 +192,30 @@ addressInput.addEventListener("keydown", (e) => {
 console.log("initiate.js loaded - event listeners attached");
 
 
+  // Show QR file name
+  const qrInput = document.getElementById("qrFileInput");
+  const qrFileName = document.getElementById("qrFileName");
+
+  qrInput.addEventListener("change", function() {
+    if (qrInput.files.length > 0) {
+      qrFileName.textContent = qrInput.files[0].name;
+    } else {
+      qrFileName.textContent = "";
+    }
+  });
+
+  // Show Attachment file name
+  const attachInput = document.getElementById("attachFileInput");
+  const attachFileName = document.getElementById("attachFileName");
+
+  attachInput.addEventListener("change", function() {
+    if (attachInput.files.length > 0) {
+      attachFileName.textContent = attachInput.files[0].name;
+    } else {
+      attachFileName.textContent = "";
+    }
+  });
+
+
+
+

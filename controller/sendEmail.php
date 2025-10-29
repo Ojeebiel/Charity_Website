@@ -33,7 +33,7 @@ function sendCharityEmail($recipient, $caption, $imagePath, $name) {
                     <p>Check it out below 👇</p>
                     <img src="cid:charity-image" style="max-width:100%;border-radius:10px;" alt="Post Image">
                     <br><br>
-                    <a href="https://yourwebsite.com/view/gallery.php" 
+                    <a href="http://localhost/Charity_Website/index.php" 
                     style="background:#27ae60;color:white;padding:10px 15px;text-decoration:none;border-radius:5px;">
                     View Gallery →
                     </a>

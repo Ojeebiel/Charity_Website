@@ -3,12 +3,12 @@
 require '../model/dbconn.php';
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    echo "✅ POST received<br>";
-    print_r($_POST);
-} else {
-    echo "❌ Not a POST request";
-}
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//     echo "✅ POST received<br>";
+//     print_r($_POST);
+// } else {
+//     echo "❌ Not a POST request";
+// }
 
 // ✅ Safely get account_id (or default to 0)
 $account_id = $_SESSION['account_id'] ?? 0;
@@ -52,7 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               VALUES ('$account_id', '$recipient_id', '$fundraiser_id', '$amount', '$ref_number')";
 
     if (mysqli_query($conn, $query)) {
-        echo "Donation successfully recorded!";
+
+        echo "<script>
+            alert('Donation successfully sent!');
+            window.location.href = '../view/fundraisers.php';
+          </script>";
+        exit();
+
+
     } else {
         echo "Error: " . mysqli_error($conn);
     }
